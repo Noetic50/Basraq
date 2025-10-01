@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basraq | Business Growth Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ffffff;
+            --secondary: #f8f9fa;
+            --accent: #4361ee;
+            --accent-light: #4895ef;
+            --accent-dark: #3a0ca3;
+            --success: #4cc9f0;
+            --text: #212529;
+            --text-secondary: #6c757d;
+            --border: #e9ecef;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            opacity: 0.7;
+            transition: var(--transition);
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--accent-light);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            opacity: 0.3;
+            transition: var(--transition);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Modern Logo */
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            margin-right: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-text {
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            background: linear-gradient(135deg, #f8f9ff 0%, #eef2ff 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-illustration {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50%;
+            max-width: 600px;
+            opacity: 0.8;
+            z-index: 1;
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 10%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: var(--primary);
+            border-radius: 16px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.15);
+            border-color: var(--accent-light);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Process Section */
+        .process-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .process-step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .process-step h3 {
+            margin: 1.5rem 0 1rem;
+            color: var(--text);
+        }
+
+        .process-step p {
+            color: var(--text-secondary);
+        }
+
+        /* Membership CTA */
+        .membership-cta {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+            margin-top: 3rem;
+            color: white;
+        }
+
+        .membership-cta h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .membership-cta p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+        }
+
+        .membership-cta .cta-button {
+            background: white;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .membership-cta .cta-button:hover {
+            background: var(--secondary);
+            color: var(--accent-dark);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--secondary);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .testimonial {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .testimonial-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .client-details h4 {
+            margin-bottom: 0.2rem;
+        }
+
+        .client-details p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 10% 2rem;
+            background: var(--secondary);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-illustration {
+                width: 60%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 5%;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .logo-icon {
+                width: 36px;
+                height: 36px;
+                margin-right: 10px;
+            }
+            
+            .hero {
+                text-align: center;
+                padding-top: 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-illustration {
+                display: none;
+            }
+            
+            section {
+                padding: 4rem 5%;
+            }
+            
+            .membership-cta {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <div class="logo-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4361ee" />
+                            <stop offset="100%" stop-color="#3a0ca3" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M20,50 L40,30 L40,70 Z" fill="url(#logoGradient)" />
+                    <path d="M40,30 L80,50 L40,70 Z" fill="url(#logoGradient)" opacity="0.8" />
+                    <circle cx="50" cy="50" r="8" fill="white" />
+                </svg>
+            </div>
+            <span class="logo-text">BASRAQ</span>
+        </a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#process">How It Works</a>
+            <a href="#testimonials">Results</a>
+            <a href="#membership">Pricing</a>
+        </div>
+        <button class="cta-button">Get Started</button>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Scale Your Business with Intelligent Growth Solutions</h1>
+            <p>Basraq provides end-to-end business development, AI-powered sales automation, and data-driven email marketing to help you acquire customers and grow revenue.</p>
+            <button class="cta-button">Schedule a Demo</button>
+        </div>
+        <div class="hero-illustration">
+            <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,200 Q150,100 300,200 T600,200" fill="none" stroke="#4361ee" stroke-width="2" opacity="0.2"/>
+                <circle cx="100" cy="180" r="30" fill="#4361ee" opacity="0.1"/>
+                <circle cx="250" cy="220" r="25" fill="#4895ef" opacity="0.15"/>
+                <circle cx="400" cy="190" r="35" fill="#3a0ca3" opacity="0.1"/>
+                <rect x="150" y="100" width="80" height="60" rx="10" fill="#4361ee" opacity="0.08"/>
+                <rect x="320" y="120" width="100" height="70" rx="10" fill="#4895ef" opacity="0.1"/>
+                <path d="M50,300 L150,250 L250,280 L350,240 L450,270 L550,230" stroke="#4361ee" stroke-width="3" fill="none" stroke-dasharray="10,5"/>
+            </svg>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services">
+        <h2 class="section-title">Our Growth Solutions</h2>
+        <p class="section-subtitle">We help businesses acquire customers, increase sales, and build lasting relationships through our specialized services.</p>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Business Development Outsourcing</h3>
+                <p>Expand your market reach with our dedicated business development teams. We handle prospecting, lead qualification, and partnership development so you can focus on closing deals.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Sales Automation</h3>
+                <p>Our intelligent automation platform qualifies leads, schedules meetings, and nurtures prospects 24/7. Increase your sales team's productivity by 300% with minimal manual effort.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                <h3>State-of-the-Art Email Marketing</h3>
+                <p>Create hyper-personalized email campaigns that convert. Our data-driven approach optimizes send times, content, and segmentation to maximize engagement and ROI.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section id="process">
+        <h2 class="section-title">How We Drive Growth</h2>
+        <p class="section-subtitle">Our proven methodology delivers measurable results for businesses of all sizes.</p>
+        <div class="process-container">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Strategy & Planning</h3>
+                <p>We analyze your business goals, target audience, and competitive landscape to create a customized growth strategy.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>Implementation</h3>
+                <p>Our experts deploy the right mix of services - from business development to automation - tailored to your needs.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Optimization</h3>
+                <p>We continuously monitor performance, test new approaches, and refine our strategy to maximize your ROI.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section id="testimonials">
+        <div class="testimonials">
+            <div class="testimonial">
+                <p class="testimonial-text">"Basraq transformed our lead generation process. Their business development team helped us enter three new markets and increased our qualified leads by 220% in just six months."</p>
+                <div class="client-info">
+                    <div class="client-avatar">SJ</div>
+                    <div class="client-details">
+                        <h4>Sarah Johnson</h4>
+                        <p>CEO, TechGrowth Inc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Membership CTA -->
+    <section id="membership">
+        <div class="membership-cta">
+            <h2>Monthly Growth Membership</h2>
+            <p>Access our full suite of business growth services with flexible monthly plans. Perfect for scaling businesses that need consistent support.</p>
+            <button class="cta-button">Contact Sales for Pricing</button>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>BASRAQ</h3>
+                <p>Helping businesses grow through intelligent outsourcing and automation solutions.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Business Development</a></li>
+                    <li><a href="#">Sales Automation</a></li>
+                    <li><a href="#">Email Marketing</a></li>
+                    <li><a href="#">Growth Consulting</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:hello@basraq.com">hello@basraq.com</a></li>
+                    <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                    <li>New York, NY</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 Basraq Growth Solutions. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 50);
+        });
+        
+        // Add hover effect to buttons and links
+        const interactiveElements = document.querySelectorAll('a, button, .service-card, .process-step');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        });
+        
+        // Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Update hero illustration on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const heroIllustration = document.querySelector('.hero-illustration');
+            if (heroIllustration) {
+                heroIllustration.style.transform = `translateY(${scrollPosition * 0.1}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
