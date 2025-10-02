@@ -26,7 +26,33 @@
             padding: 0;
             box-sizing: border-box;
         }
+        .logo-container {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
 
+.logo-image {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    filter: brightness(1); /* Optional: if image appears too dark */
+}
+
+.logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    margin-left: 12px;
+}
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--primary);
@@ -521,11 +547,11 @@
     <!-- Navigation -->
 <nav>
     <a href="#" class="logo">
-        <div class="logo-icon">
-            <img src="basraq-logo.png" alt="Basraq Logo" width="42" height="42">
-        </div>
-        <span class="logo-text">BASRAQ</span>
-    </a>
+    <div class="logo-container">
+        <img src="basraq-logo.png" alt="Basraq Logo" class="logo-image">
+    </div>
+    <span class="logo-text">BASRAQ</span>
+</a>
     <div class="nav-links">
         <a href="#services">Services</a>
         <a href="#process">How It Works</a>
@@ -740,6 +766,7 @@
 </body>
 
 </html>
+
 
 
 
